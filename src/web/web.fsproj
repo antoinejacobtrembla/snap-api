@@ -6,13 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../Domain/Domain.fsproj" />
+    <ProjectReference Include="../Infra/Infra.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Http/*.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Giraffe" Version="7.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
   </ItemGroup>
 
 </Project>

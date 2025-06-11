@@ -1,15 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <ProjectReference Include="../Domain/Domain.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Persistence/*.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
     <PackageReference Include="MongoDB.Driver" Version="3.4.0" />
   </ItemGroup>
 

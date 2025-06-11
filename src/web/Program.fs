@@ -2,10 +2,10 @@
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
+open System.Collections
 
+open Infra.Persistence.InMemoryRecipeRepository
 open Web.Http
-
-
 
 let routes =
     choose [
@@ -17,6 +17,7 @@ let configureApp (app: IApplicationBuilder) =
 
 let configureServices (services : IServiceCollection) =
     services.AddGiraffe() |> ignore
+    services.AddRecipeInMemory(Hashtable()) |> ignore
 
 [<EntryPoint>]
 let main _ =
