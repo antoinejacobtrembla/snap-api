@@ -1,8 +1,12 @@
 namespace Web.Http
 
 open Giraffe
+open MediatR
 open Microsoft.AspNetCore.Http
 open System
+
+open App.Recipe.Queries
+open App.Recipe
 
 open Domain.Recipe
 open Domain.Recipe.Repository
@@ -12,9 +16,15 @@ module RecipeHttp =
         choose [
             GET >=> route "/recipes" >=>
                 fun next context ->
-                    let find = context.GetService<Find>()
-                    let recipes = find Criteria.All
-                    json recipes next context
+                    task {
+                    let criteria =
+                        match context.TryGetQueryStringValue "id" with
+                        | None -> Criteria.All
+                        | Some name -> Criteria.Id name
+                    let mediator = context.GetService<IMediator>()
+                    let! recipes = mediator.Send(GetRecipesQuery(criteria))
+                    return! json recipes next context
+                    }
 
             POST >=> route "/recipes" >=>
                 fun next context ->
