@@ -1,16 +1,19 @@
 ﻿open Microsoft.AspNetCore.Builder
-open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open System
 open System.Collections
 
-open MediatR
+open System.Text.Json
+open System.Text.Json.Serialization
+
 open App.Recipe
 
 open Infra.Persistence.InMemoryRecipeRepository
 open Microsoft.Extensions.Hosting
 open Web.Http
+
+type EntryPoint() = class end
 
 let routes =
     choose [
@@ -26,6 +29,10 @@ let configureServices (builder : WebApplicationBuilder) =
     builder.Services.AddGiraffe() |> ignore
     builder.Services.AddRecipeInMemory(Hashtable())
     builder.Services.AddMediatR(configureMediaR) |> ignore
+    
+    let options: JsonSerializerOptions = JsonSerializerOptions()
+    options.PropertyNameCaseInsensitive <- true
+    builder.Services.AddSingleton<Json.ISerializer> (Json.Serializer(options)) |> ignore
     builder
     
 let build (builder : WebApplicationBuilder) =
