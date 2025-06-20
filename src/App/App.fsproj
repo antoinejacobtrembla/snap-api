@@ -1,20 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="../Domain/Domain.fsproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../Domain/Domain.fsproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="Recipe/Queries/*.fs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Recipe/Queries/Queries.fs"/>
+        <Compile Include="Recipe/Queries/GetRecipesQueryHandler.fs"/>
+        <Compile Include="Recipe/Queries/GetRecipeByIdQueryHandler.fs"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.5.0"/>
+    </ItemGroup>
 
 </Project>
